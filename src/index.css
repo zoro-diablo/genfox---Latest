@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  max-width: 1664px;
+  margin: 0 auto;
+}
+
+.shadow-custom {
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 6px 15px -6px;
+}
+
+@font-face {
+  font-family: 'Eudoxus Sans';
+  src: url('/fonts/EudoxusSans-Bold-BF659b6cb1408e5.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.custom-font {
+  font-family: 'Eudoxus Sans', sans-serif;
+  font-weight: 700;
+}
+
+
