@@ -23,4 +23,65 @@ body {
   font-weight: 700;
 }
 
+.PaymentButton {
+  background-color: #1a202c !important;
+  color: #ffffff !important;
+  border: 2px solid #8a9eb3 !important;
+  border-radius: 8px !important;
+  padding: 0px 0px !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: background-color 0.3s ease !important;
+  animation: skew-y-shakeing 1.3s ease-in-out infinite;
+}
 
+.PaymentButton:hover {
+  background-color: #4990dd !important;
+}
+
+.PaymentButton svg path {
+  fill: #ffffff !important;
+  display: none !important;
+}
+
+.PaymentButton--rzpTheme.svelte-ekc7fv.svelte-ekc7fv::before {
+  display: none !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 0 !important;
+}
+
+.PaymentButton-securedBy {
+  display: none !important;
+}
+
+.PaymentButton-contents.svelte-ekc7fv.svelte-ekc7fv {
+  padding: 19px 18px 4px 44px !important;
+  margin: 1px 0 !important;
+  min-width: 240px !important;
+}
+
+.PaymentButton.svelte-ekc7fv.svelte-ekc7fv {
+  height: 65px !important;
+}
+
+.PaymentButton-text.svelte-ekc7fv.svelte-ekc7fv {
+  font-size: 28px !important;
+  font-style: normal !important;
+}
+
+.PaymentButton--rzpTheme.svelte-ekc7fv .PaymentButton-contents.svelte-ekc7fv {
+  padding-left: 20px !important;
+}
+
+@keyframes skew-y-shakeing {
+  0% { transform: skewY(-4deg); }
+  5% { transform: skewY(4deg); }
+  10% { transform: skewY(-4deg); }
+  15% { transform: skewY(4deg); }
+  20% { transform: skewY(0deg); }
+  100% { transform: skewY(0deg); }
+}
