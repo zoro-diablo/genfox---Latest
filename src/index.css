@@ -38,7 +38,7 @@ body {
 }
 
 .PaymentButton:hover {
-  background-color: #4990dd !important;
+  background-color: #404244 !important;
 }
 
 .PaymentButton svg path {
@@ -61,7 +61,7 @@ body {
 .PaymentButton-contents.svelte-ekc7fv.svelte-ekc7fv {
   padding: 19px 18px 4px 44px !important;
   margin: 1px 0 !important;
-  min-width: 240px !important;
+  min-width: 220px !important;
 }
 
 .PaymentButton.svelte-ekc7fv.svelte-ekc7fv {
@@ -69,7 +69,7 @@ body {
 }
 
 .PaymentButton-text.svelte-ekc7fv.svelte-ekc7fv {
-  font-size: 28px !important;
+  font-size: 22px !important;
   font-style: normal !important;
 }
 

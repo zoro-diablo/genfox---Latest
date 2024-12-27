@@ -111,7 +111,7 @@ const Payment = () => {
           <div className='w-full'>
             <div className='h-34 md:h-auto overflow-hidden md:overflow-visible'>
               <p
-                className='text-lg md:text-[22px] font-semibold custom-font text-center md:text-left'
+                className='text-lg md:text-[20px] font-semibold custom-font text-center md:text-left'
                 dangerouslySetInnerHTML={{ __html: displayedHTML }}
               ></p>
             </div>
