@@ -65,7 +65,6 @@ export default function ContactUs({ nameInputRef }) {
     }
   };
 
-  // Define animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 100 },
     visible: {
