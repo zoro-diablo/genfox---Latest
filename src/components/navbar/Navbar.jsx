@@ -38,7 +38,7 @@ const Navbar = () => {
               className='h-5 sm:h-6 w-auto dark:invert'
               alt='logo'
             />
-            <p className='sm:text-[18px] text-[15px]'>FnPersona</p>
+            <p className='sm:text-[18px] text-[15px]'>GenFox</p>
           </Link>
           <div className='hidden md:flex gap-5 ml-2 pt-1'>
             <Link

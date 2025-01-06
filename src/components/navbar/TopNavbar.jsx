@@ -43,7 +43,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logogen.png';
 
 function TopNavbar() {
   const { user, logout } = useAuth();
@@ -87,9 +87,9 @@ function TopNavbar() {
               <img
                 src={logo}
                 alt='FnPersona'
-                className='h-6 w-6 transition-all group-hover:scale-110 dark:invert'
+                className='h-6 w-6 transition-all group-hover:scale-110 '
               />
-              <span className='sr-only dark:text-white'>FnPersona</span>
+              <span className='sr-only dark:text-white'>GenFox</span>
             </Link>
             <Link
               to='/dashboard/lobby'

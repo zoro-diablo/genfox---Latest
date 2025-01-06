@@ -15,7 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logogen.png';
 import { GrTransaction } from 'react-icons/gr';
 import {
   DropdownMenu,
@@ -36,9 +36,9 @@ function Sidebar() {
           >
             <img
               src={logo}
-              className={`h-6 p-1  w-8 transition-all group-hover:scale-110 `}
+              className={`h-8 p-1  w-8 transition-all group-hover:scale-110 `}
             />
-            <span className='sr-only'>FnPersona</span>
+            <span className='sr-only'>GenFox</span>
           </NavLink>
 
           <Tooltip>

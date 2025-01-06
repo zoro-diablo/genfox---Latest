@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+// src/components/StepModal.jsx
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import avatar1 from '../../assets/avatar.png'; // Male avatar
 import avatar2 from '../../assets/new_avatar.png'; // Female avatar
@@ -6,6 +7,8 @@ import {
   IoCloudUploadSharp,
   IoNotificationsSharp,
   IoInformationCircleOutline,
+  IoChevronBack,
+  IoChevronForward,
 } from 'react-icons/io5';
 import bank from '../../assets/bank-building.png';
 import google from '../../assets/Googles.png';
@@ -38,6 +41,38 @@ const StepModal = ({ isOpen, setIsOpen }) => {
     aiName: '',
   });
 
+  // Step 7: State for Carousel
+  const [productIndex, setProductIndex] = useState(0);
+  const [skillIndex, setSkillIndex] = useState(0);
+
+  const foxProducts = [
+    { name: 'Product One', src: foxProduct1 },
+    { name: 'Product Two', src: foxProduct2 },
+    { name: 'Product Three', src: foxProduct3 },
+  ];
+
+  const foxSkills = [
+    { name: 'Skill One', src: foxSkill1 },
+    { name: 'Skill Two', src: foxSkill2 },
+    { name: 'Skill Three', src: foxSkill3 },
+  ];
+
+  const handleNextProduct = () => {
+    setProductIndex((prev) => (prev + 1) % foxProducts.length);
+  };
+
+  const handlePrevProduct = () => {
+    setProductIndex((prev) => (prev - 1 + foxProducts.length) % foxProducts.length);
+  };
+
+  const handleNextSkill = () => {
+    setSkillIndex((prev) => (prev + 1) % foxSkills.length);
+  };
+
+  const handlePrevSkill = () => {
+    setSkillIndex((prev) => (prev - 1 + foxSkills.length) % foxSkills.length);
+  };
+
   // Reset form data when modal closes
   useEffect(() => {
     if (!isOpen) {
@@ -61,6 +96,7 @@ const StepModal = ({ isOpen, setIsOpen }) => {
     }
   }, [isOpen]);
 
+  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -129,6 +165,18 @@ const StepModal = ({ isOpen, setIsOpen }) => {
     }));
   };
 
+  // Retrieve user's full name from Local Storage
+  const [userFullName, setUserFullName] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      const storedName = localStorage.getItem('userFullName');
+      if (storedName) {
+        setUserFullName(storedName);
+      }
+    }
+  }, [isOpen]);
+
   // Helper component for tooltips
   const Tooltip = ({ content }) => (
     <div className="relative inline-block group">
@@ -177,8 +225,6 @@ const StepModal = ({ isOpen, setIsOpen }) => {
               overflow-hidden
             `}
           >
-            {/* Removed Close Button */}
-
             {/* Step Indicator */}
             <div className="absolute top-2 left-4 bg-indigo-500 text-white text-xs font-semibold py-1 px-3 rounded-full shadow-md">
               Step {currentStep} of 8
@@ -304,7 +350,7 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                     }
                     className={`p-3 rounded border ${
                       errors.aiName ? 'border-red-500' : 'border-gray-300'
-                    } text-black w-[300px] text-center font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+                    } text-black w-[220px] sm:w-[300px] sm:text-[16px] text-[12px] text-center font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400`}
                     aria-label="AI Assistant Name"
                   />
                   {/* Display error message if name is not provided */}
@@ -315,24 +361,24 @@ const StepModal = ({ isOpen, setIsOpen }) => {
               )}
 
               {currentStep === 4 && (
-                <div>
-                  <h3 className="text-2xl mt-4 font-medium mb-4">
+                <div className="px-4 sm:px-8">
+                  <h3 className="text-lg sm:text-2xl mt-4 font-medium mb-4 text-center">
                     Control AI Notifications
                   </h3>
                   {/* Notification Frequency */}
                   <div className="mb-5 mt-5">
-                    <div className="flex items-center justify-center mb-4">
-                      <h4 className="font-medium text-md bg-blue-500 w-fit px-5 rounded-full">
+                    <div className="flex flex-col sm:flex-row items-center justify-center mb-4">
+                      <h4 className="font-medium text-sm sm:text-md bg-blue-500 w-fit px-3 sm:px-5 rounded-full text-center flex items-center">
                         Notification Frequency
+                        {/* Information Icon with Tooltip */}
+                        <Tooltip content="Choose how often you want to receive notifications." />
                       </h4>
-                      {/* Information Icon with Tooltip */}
-                      <Tooltip content="Choose how often you want to receive notifications." />
                     </div>
-                    <div className="flex justify-around py-2">
+                    <div className="flex flex-col sm:flex-row justify-center py-2 gap-2 sm:gap-5">
                       {['Rarely', 'Occasionally', 'Frequently'].map((freq) => (
                         <div key={freq} className="relative group">
                           <button
-                            className={`py-2 px-4 rounded ${
+                            className={`py-2 px-4 text-sm sm:text-base rounded ${
                               formData.notificationFrequency === freq
                                 ? 'bg-emerald-500 text-white'
                                 : 'bg-white/30 text-white hover:bg-white/40'
@@ -347,99 +393,95 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                           >
                             {freq}
                           </button>
-                          {/* Optional: Add tooltips for each frequency if needed */}
                         </div>
                       ))}
                     </div>
                   </div>
                   {/* Dynamic Notifications */}
                   <div>
-                    <div className="flex items-center justify-center mb-2">
-                      <h4 className="font-medium text-md bg-blue-500 w-fit px-5 rounded-full">
+                    <div className="flex flex-col sm:flex-row items-center justify-center mb-2">
+                      <h4 className="font-medium text-sm sm:text-md bg-blue-500 w-fit px-3 sm:px-5 rounded-full text-center flex items-center">
                         Dynamic Notifications
+                        {/* Information Icon with Tooltip */}
+                        <Tooltip content="Toggle specific dynamic notifications on or off." />
                       </h4>
-                      {/* Information Icon with Tooltip */}
-                      <Tooltip content="Toggle specific dynamic notifications on or off." />
                     </div>
-                    {Object.entries(formData.dynamicNotifications).map(
-                      ([key, value]) => (
-                        <div
-                          key={key}
-                          className="flex justify-between mx-10 my-5 items-center mb-4"
-                        >
-                          <span className="capitalize text-[14px]">
-                            {key.replace(/([A-Z])/g, ' $1')}
-                          </span>
-                          <div className="flex items-center">
-                            <label className="relative inline-flex items-center cursor-pointer">
-                              <input
-                                type="checkbox"
-                                className="sr-only peer"
-                                checked={value}
-                                onChange={() => toggleDynamicNotification(key)}
-                                aria-label={`Toggle ${key.replace(
-                                  /([A-Z])/g,
-                                  ' $1'
-                                )}`}
-                              />
-                              <div
-                                className="group peer ring-0 bg-gradient-to-bl from-neutral-800 via-neutral-700 to-neutral-600 rounded-full outline-none duration-300 after:duration-200 w-12 h-6 shadow-md peer-focus:outline-none 
-                                  after:content-[''] 
-                                  after:rounded-full 
-                                  after:absolute 
-                                  after:bg-[#0D2B39] 
-                                  peer-checked:after:rotate-180 
-                                  after:bg-conic-gradient(from_135deg, #b2a9a9, #b2a8a8, #ffffff, #d7dbd9, #ffffff, #b2a8a8) 
-                                  after:outline-none 
-                                  after:h-5 
-                                  after:w-5 
-                                  after:top-0.5 
-                                  after:left-0.5 
-                                  peer-checked:after:translate-x-6 
-                                  peer-hover:after:scale-95 
-                                  peer-checked:bg-gradient-to-r 
-                                  peer-checked:from-emerald-500 
-                                  peer-checked:to-emerald-900"
-                              ></div>
-                            </label>
-                            {/* Information Icon with Tooltip for each dynamic notification */}
-                            <Tooltip
-                              content={`Toggle ${key
-                                .replace(/([A-Z])/g, ' $1')
-                                .toLowerCase()} notifications.`}
+                    {Object.entries(formData.dynamicNotifications).map(([key, value]) => (
+                      <div
+                        key={key}
+                        className="flex flex-row justify-between mx-2 sm:mx-10 my-5 items-center mb-4 text-center sm:text-left"
+                      >
+                        <span className="capitalize text-[12px] sm:text-[14px]">
+                          {key.replace(/([A-Z])/g, ' $1')}
+                        </span>
+                        <div className="flex items-center mt-2 sm:mt-0">
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              className="sr-only peer"
+                              checked={value}
+                              onChange={() => toggleDynamicNotification(key)}
+                              aria-label={`Toggle ${key.replace(/([A-Z])/g, ' $1')}`}
                             />
-                          </div>
+                            <div
+                              className="group peer ring-0 bg-gradient-to-bl from-neutral-800 via-neutral-700 to-neutral-600 rounded-full outline-none duration-300 after:duration-200 w-10 h-5 sm:w-12 sm:h-6 shadow-md peer-focus:outline-none 
+                                after:content-[''] 
+                                after:rounded-full 
+                                after:absolute 
+                                after:bg-[#0D2B39] 
+                                peer-checked:after:rotate-180 
+                                after:bg-conic-gradient(from_135deg, #b2a9a9, #b2a8a8, #ffffff, #d7dbd9, #ffffff, #b2a8a8) 
+                                after:outline-none 
+                                after:h-4 sm:after:h-5 
+                                after:w-4 sm:after:w-5 
+                                after:top-0.5 
+                                after:left-0.5 
+                                peer-checked:after:translate-x-5 sm:peer-checked:after:translate-x-6 
+                                peer-hover:after:scale-95 
+                                peer-checked:bg-gradient-to-r 
+                                peer-checked:from-emerald-500 
+                                peer-checked:to-emerald-900"
+                            ></div>
+                          </label>
+                          {/* Information Icon with Tooltip for each dynamic notification */}
+                          <Tooltip
+                            content={`Toggle ${key.replace(/([A-Z])/g, ' $1').toLowerCase()} notifications.`}
+                          />
                         </div>
-                      )
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
 
-              {currentStep === 5 && (
-                <div>
-                  <h3 className="text-2xl font-medium mt-4 mb-6">Set Up KYC</h3>
-                  <p className="mb-4 text-gray-300 text-sm">
-                    Payment Due Reminders
-                  </p>
-                  <img
-                    className="h-52 w-52 mx-auto my-5"
-                    src={bank}
-                    alt="Bank Building"
-                  />
-                  <button
-                    onClick={() => {
-                      alert('KYC Completed!');
-                      // Prevent modal from closing; proceed to next step
-                      setCurrentStep(6);
-                    }}
-                    className="bg-black text-white px-6 py-2 rounded font-semibold shadow-md hover:bg-gray-800"
-                    aria-label="Complete your KYC"
-                  >
-                    Complete your KYC
-                  </button>
-                </div>
-              )}
+{currentStep === 5 && (
+  <div>
+    <h3 className="text-2xl font-medium mt-4 mb-6">Set Up KYC</h3>
+    <p className="mb-4 text-gray-300 text-[13px] sm:text-[14px]">
+      To proceed, we need to verify your identity through a quick KYC (Know Your Customer) process. 
+      Completing KYC ensures secure transactions and protects your account.
+    </p>
+  
+    <img
+      className="h-52 w-52 mx-auto my-5"
+      src={bank}
+      alt="Bank Building"
+    />
+   
+    <button
+      onClick={() => {
+        alert('KYC Completed!');
+        // Proceed to next step
+        setCurrentStep(6);
+      }}
+      className="bg-black text-white px-6 py-2 rounded font-semibold shadow-md hover:bg-gray-800"
+      aria-label="Complete your KYC"
+    >
+      Complete your KYC
+    </button>
+  </div>
+)}
+
 
               {currentStep === 6 && (
                 <div>
@@ -474,7 +516,7 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                         <img
                           src={platform.src}
                           alt={platform.name}
-                          className="h-40 rounded-lg mx-auto"
+                          className=" sm:h-40 rounded-lg mx-auto"
                         />
                         <p className="text-center text-sm font-medium mt-2">
                           {platform.name}
@@ -491,17 +533,58 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                   <h3 className="text-2xl font-medium mt-6 mb-4">
                     FOX Products
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-                    {[
-                      { name: 'Product One', src: foxProduct1 },
-                      { name: 'Product Two', src: foxProduct2 },
-                      { name: 'Product Three', src: foxProduct3 },
-                    ].map((product) => (
+                  {/* Products Carousel for Mobile */}
+                  <div className="block sm:hidden mb-8">
+                    <div className="relative">
+                      <button
+                        onClick={handlePrevProduct}
+                        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+                        aria-label="Previous Product"
+                      >
+                        <IoChevronBack size={20} />
+                      </button>
+                      <div className="overflow-hidden">
+                        <div
+                          className="flex transition-transform duration-300"
+                          style={{ transform: `translateX(-${productIndex * 100}%)` }}
+                        >
+                          {foxProducts.map((product) => (
+                            <div key={product.name} className="flex-shrink-0 w-full">
+                              <div className="text-center">
+                                <img
+                                  src={product.src}
+                                  alt={product.name}
+                                  className="h-20 sm:h-32 mx-auto mb-2 rounded-lg shadow-md"
+                                />
+                                <p className="mt-2 text-sm font-medium">
+                                  {product.name}
+                                </p>
+                                <p className="text-xs text-gray-300 mt-1">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                  Vivamus lacinia odio vitae vestibulum vestibulum.
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleNextProduct}
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+                        aria-label="Next Product"
+                      >
+                        <IoChevronForward size={20} />
+                      </button>
+                    </div>
+                  </div>
+                  {/* Products Grid for Desktop */}
+                  <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                    {foxProducts.map((product) => (
                       <div key={product.name} className="text-center">
                         <img
                           src={product.src}
                           alt={product.name}
-                          className="h-32 w-40 mx-auto mb-2 rounded-lg shadow-md"
+                          className="h-20 sm:h-32 mx-auto mb-2 rounded-lg shadow-md"
                         />
                         <p className="mt-2 text-sm font-medium">
                           {product.name}
@@ -515,17 +598,58 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                   </div>
 
                   <h3 className="text-2xl font-medium mt-6 mb-4">FOX Skills</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {[
-                      { name: 'Skill One', src: foxSkill1 },
-                      { name: 'Skill Two', src: foxSkill2 },
-                      { name: 'Skill Three', src: foxSkill3 },
-                    ].map((skill) => (
+                  {/* Skills Carousel for Mobile */}
+                  <div className="block sm:hidden">
+                    <div className="relative">
+                      <button
+                        onClick={handlePrevSkill}
+                        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+                        aria-label="Previous Skill"
+                      >
+                        <IoChevronBack size={20} />
+                      </button>
+                      <div className="overflow-hidden">
+                        <div
+                          className="flex transition-transform duration-300"
+                          style={{ transform: `translateX(-${skillIndex * 100}%)` }}
+                        >
+                          {foxSkills.map((skill) => (
+                            <div key={skill.name} className="flex-shrink-0 w-full">
+                              <div className="text-center">
+                                <img
+                                  src={skill.src}
+                                  alt={skill.name}
+                                  className="h-20 sm:h-32 w-20 sm:w-32 mx-auto mb-2 rounded-lg shadow-md"
+                                />
+                                <p className="mt-2 text-sm font-medium">
+                                  {skill.name}
+                                </p>
+                                <p className="text-xs text-gray-300 mt-1">
+                                  Sed do eiusmod tempor incididunt ut labore et dolore magna
+                                  aliqua. Ut enim ad minim veniam.
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleNextSkill}
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+                        aria-label="Next Skill"
+                      >
+                        <IoChevronForward size={20} />
+                      </button>
+                    </div>
+                  </div>
+                  {/* Skills Grid for Desktop */}
+                  <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {foxSkills.map((skill) => (
                       <div key={skill.name} className="text-center">
                         <img
                           src={skill.src}
                           alt={skill.name}
-                          className="h-32 w-32 mx-auto mb-2 rounded-lg shadow-md"
+                          className="h-20 sm:h-32 w-20 sm:w-32 mx-auto mb-2 rounded-lg shadow-md"
                         />
                         <p className="mt-2 text-sm font-medium">
                           {skill.name}
@@ -556,7 +680,7 @@ const StepModal = ({ isOpen, setIsOpen }) => {
                   {/* Welcome Message */}
                   <div className="text-left max-w-md">
                     <h3 className="text-2xl font-medium mb-2">
-                      I'm Ready, {formData.aiName || 'Khizer'}
+                      I'm Ready, {userFullName || 'User'}
                     </h3>
                     <p className="text-gray-300 text-[15px]">
                       Hi there, I'm {formData.aiName || 'Donna'}—your personal AI
@@ -585,21 +709,21 @@ const StepModal = ({ isOpen, setIsOpen }) => {
 
               {/* Conditional Buttons */}
               {currentStep === 4 ? (
-                <div className="flex gap-4 ml-auto">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 mt-4 sm:mt-0 ml-auto sm:ml-0 w-full sm:w-auto">
                   <button
                     onClick={() => {
                       alert('We will continue on WhatsApp.');
                       // Proceed to the next step without closing the modal
                       setCurrentStep(5);
                     }}
-                    className="bg-white/30 text-sm hover:bg-white/40 transition-colors text-white shadow-sm font-semibold whitespace-nowrap px-[6px] rounded"
+                    className="bg-white/30 hover:bg-white/40 transition-colors text-[12px] sm:text-md text-white shadow-sm font-semibold whitespace-nowrap px-4 py-2 rounded w-fit sm:w-auto text-center"
                     aria-label="Continue on WhatsApp"
                   >
                     Continue on WhatsApp
                   </button>
                   <button
                     onClick={() => setCurrentStep(5)}
-                    className="bg-black text-white hover:bg-gray-800 font-semibold py-2 px-4 rounded"
+                    className="bg-black text-white hover:bg-gray-800 font-semibold py-2 px-4 text-sm sm:text-md rounded w-fit sm:w-auto text-center"
                     aria-label="Complete your KYC"
                   >
                     Complete your KYC
