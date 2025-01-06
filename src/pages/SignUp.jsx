@@ -1,4 +1,5 @@
 import wallpaper from '../assets/white-wallpaper.jpg';
+import darkwallpaper from '../assets/black-wallpaper.jpg';  
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import { cn } from '@/lib/utils';
@@ -29,9 +30,9 @@ const SignUp = () => {
   return (
     <div
       className='min-h-screen w-full bg-cover bg-center flex items-center justify-center p-4'
-      style={{ backgroundImage: `url(${wallpaper})` }}
+      style={{ backgroundImage: `url(${darkwallpaper})` }}
     >
-      <div className='w-full max-w-md mx-auto rounded-md p-6 md:p-8 shadow-input bg-white dark:bg-black'>
+      <div className='w-full max-w-md mx-auto rounded-md p-6 md:p-8 shadow-input bg-white dark:bg-black/80'>
         <div className='flex justify-center w-full mb-4'>
           <img src={logo} alt='logo' className='w-16 h-16 sm:w-20 sm:h-20' />
         </div>
@@ -92,29 +93,31 @@ const SignUp = () => {
             </a> */}
           </div>
 
-          <button
-            className='relative bg-gradient-to-br from-black to-neutral-600 block w-full text-white rounded-md h-10 sm:h-12 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]'
-            type='submit'
-          >
-            Sign Up &rarr;
-            <BottomGradient />
-          </button>
+          <Link to='/form'>
+            <button
+              className='relative bg-gradient-to-br from-black to-neutral-600 block w-full text-white rounded-md h-10 sm:h-12 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]'
+              type='submit'
+            >
+              Sign Up &rarr;
+              <BottomGradient />
+            </button>
+          </Link>
 
           <div className='flex items-center my-6 sm:my-8'>
             <div className='flex-grow bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px]' />
-            <span className='px-4 text-neutral-500 text-[10px] sm:text-[12px]'>
+            <span className='px-4 text-neutral-500 text-[10px] sm:text-[12px] font-medium'>
               Or continue with
             </span>
             <div className='flex-grow bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px]' />
           </div>
 
           <div className='flex flex-col gap-y-4 sm:flex-row sm:gap-x-2 xl:flex-col xl:gap-y-4'>
-            <OAuthButton icon={<IconBrandGithub />} text='GitHub' />
-            <OAuthButton icon={<IconBrandGoogle />} text='Google' />
-            <OAuthButton icon={<IconBrandLinkedin />} text='LinkedIn' />
+            <OAuthButton icon={<IconBrandGithub className='text-white/50' />} text='GitHub' />
+            <OAuthButton icon={<IconBrandGoogle className='text-white/50' />} text='Google' />
+            <OAuthButton icon={<IconBrandLinkedin className='text-white/50' />} text='LinkedIn' />
           </div>
         </form>
-        <div className='text-[12px] font-semibold underline flex justify-center cursor-pointer text-black/50'>
+        <div className='text-[12px] font-semibold underline flex justify-center cursor-pointer text-white/50'>
           <Link to='/signin'>Already have an account?</Link>
         </div>
       </div>

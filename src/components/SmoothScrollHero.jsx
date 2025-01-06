@@ -6,13 +6,14 @@ import {
   useTransform,
 } from 'framer-motion';
 import { FiArrowRight, FiMapPin } from 'react-icons/fi';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import genfoxheroimage from '../assets/GenFox.png';
 import logo from '../assets/logogen.png';
 import whatsapp from '../assets/Frame 3.png';
 import call from '../assets/Frame 2.png';
 import skills from '../assets/Frame 4.png';
 import integration from '../assets/Frame 5 (1).png';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 export const SmoothScrollHero = () => {
   return (
@@ -31,15 +32,100 @@ export const SmoothScrollHero = () => {
 };
 
 const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Close sidebar when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <nav className='fixed left-0 right-0 top-0 z-50 flex flex-wrap mx-auto items-center justify-between px-4 py-3 text-white sm:flex-nowrap sm:px-6'>
       <img src={logo} className='h-8 sm:h-10' alt='logo' />
-      <button
-       
-        className='flex items-center gap-1 text-xs text-zinc-400 sm:text-sm '
+      {/* <button
+        onClick={toggleSidebar}
+        className='fixed top-4 right-4 z-50 text-xl text-black rounded-full p-2'
       >
-        ... 
-      </button>
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </button> */}
+
+      {/* Animated Sidebar */}
+      {/* <motion.div
+        ref={sidebarRef}
+        initial={{ x: '100%' }}
+        animate={{ x: isOpen ? '0%' : '100%' }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        className='fixed top-0 right-0 h-full w-64 bg-white text-gray-800 shadow-lg z-50'
+      >
+        <div className='flex flex-col p-6 space-y-6'>
+          <div className='flex items-center justify-between'>
+            <h2 className='text-lg font-extrabold border-b-2 border-gray-300 pb-2'>
+              Menu
+            </h2>
+            <button
+              onClick={toggleSidebar}
+              className='text-xl text-black p-2 rounded-full'
+            >
+              <FaTimes />
+            </button>
+          </div>
+          <a
+            href='#home'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            Home
+          </a>
+          <a
+            href='#about'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            About
+          </a>
+          <a
+            href='#services'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            Services
+          </a>
+          <a
+            href='#contact'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            Contact
+          </a>
+          <a
+            href='/signin'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            Sign In
+          </a>
+          <a
+            href='/signup'
+            className='hover:bg-gray-100 text-sm font-medium hover:rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out cursor-pointer'
+          >
+            Sign Up
+          </a>
+        </div>
+      </motion.div> */}
     </nav>
   );
 };

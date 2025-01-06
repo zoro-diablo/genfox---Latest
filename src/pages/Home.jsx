@@ -7,12 +7,14 @@ import { TimelineDemo } from '../components/TimelineDemo';
 import Contact from '../components/Contact'
 import { useRef } from 'react';
 import Payment from '../components/Payment';
+import { FloatingNavDemo } from '../components/navbar/FloatingNavDemo';
 
 export const Home = () => {
   const contactRef = useRef(null);
   const nameInputRef = useRef(null);
   return (
     <div>
+      <FloatingNavDemo />
     <SmoothScrollHero />
     <Hero contactRef={contactRef} nameInputRef={nameInputRef} />
     <About />
