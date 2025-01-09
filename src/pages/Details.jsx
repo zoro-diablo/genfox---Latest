@@ -46,7 +46,7 @@ const PersonalDetailsForm = () => {
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex items-center justify-center p-4"
-      style={{ backgroundImage: `url(${darkwallpaper})` }}
+      style={{ backgroundImage: `url(${wallpaper})` }}
     >
       <div className="w-full max-w-md mx-auto rounded-md p-6 md:p-8 shadow-input bg-white dark:bg-black/80">
         <div className="flex justify-center w-full mb-4">
@@ -73,7 +73,7 @@ const PersonalDetailsForm = () => {
           <LabelInputContainer className="mb-4">
             <Label>Gender</Label>
             <Select onValueChange={handleGenderChange}>
-              <SelectTrigger className="w-full bg-[#27272a] text-white/50 border-black">
+              <SelectTrigger className="w-full bg-[#f9fafb] dark:bg-[#27272a] text-black/40 font-medium dark:text-white/50 border-gray-300 shadow-sm">
                 <SelectValue placeholder="Select a gender" />
               </SelectTrigger>
               <SelectContent className="bg-white bg-opacity-10 dark:bg-black dark:bg-opacity-10 backdrop-blur-lg border border-black dark:border-black border-opacity-30 dark:border-opacity-30 text-black dark:text-white rounded-lg">
@@ -101,7 +101,7 @@ const PersonalDetailsForm = () => {
                 type="text"
                 onFocus={(e) => (e.target.type = 'date')}
                 onBlur={(e) => (e.target.type = 'text')}
-                className="w-full text-[12px] py-3 sm:text-[13px] font-medium pr-10 pl-3 rounded-md bg-[#27272a] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-[12px] py-3 sm:text-[13px] pr-10 pl-3 rounded-md border border-gray-300 bg-[#f9fafb] dark:bg-[#27272a] text-black placeholder:text-gray-400 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </LabelInputContainer>

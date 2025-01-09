@@ -30,7 +30,7 @@ const SignUp = () => {
   return (
     <div
       className='min-h-screen w-full bg-cover bg-center flex items-center justify-center p-4'
-      style={{ backgroundImage: `url(${darkwallpaper})` }}
+      style={{ backgroundImage: `url(${wallpaper})` }}
     >
       <div className='w-full max-w-md mx-auto rounded-md p-6 md:p-8 shadow-input bg-white dark:bg-black/80'>
         <div className='flex justify-center w-full mb-4'>
@@ -117,7 +117,7 @@ const SignUp = () => {
             <OAuthButton icon={<IconBrandLinkedin className='text-white/50' />} text='LinkedIn' />
           </div>
         </form>
-        <div className='text-[12px] font-semibold underline flex justify-center cursor-pointer text-white/50'>
+        <div className='text-[12px] font-semibold underline flex justify-center cursor-pointer text-black/50'>
           <Link to='/signin'>Already have an account?</Link>
         </div>
       </div>
