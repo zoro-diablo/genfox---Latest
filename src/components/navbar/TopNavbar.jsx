@@ -44,6 +44,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
 import logo from '../../assets/logogen.png';
+import profile from '../../assets/6681204.png'
 
 function TopNavbar() {
   const { user, logout } = useAuth();
@@ -175,7 +176,7 @@ function TopNavbar() {
             className='overflow-hidden rounded-full'
           >
             <img
-              src={user?.picture || '/placeholder-user.jpg'}
+              src={user?.picture || profile}
               width={36}
               height={36}
               alt='Avatar'
